@@ -1,31 +1,14 @@
-# instantiations of this grammar may replace leaf strings
-# with more elaborated types; e.g. title (text) replaced with
-# title-main, title-intro, title-part; type replaced with
-# enum.
-#
-# some renaming at leaf nodes is permissible
-#
-# obligations can change both from optional to mandatory,
-# and from mandatory to optional; optional elements may
-# be omitted; freely positioned alternatives may be replaced
-# with strict ordering
-#
-# DO NOT introduce a namespace here. We do not want a distinct namespace
-# for these elements, and a distinct namespace for any grammar inheriting
-# these elements; we just want one namespace for any child grammars
-# of this.
-
 grammar {
 
 status =
   element status { LocalizedString }
 
-language =
-  element language { text }
+language = element language { text }
+originallanguage = element originallanguage { text }
 ## ISO-639
 
-script =
-  element script { text }
+script = element script { text }
+originalscript = element originalscript { text }
 ## ISO-15924: Latn
 
 edition = element edition { xsd:int }
@@ -60,7 +43,7 @@ contributor =
 
 role =
   element role {
-    attribute type { ( "author" | "edition" | "publisher" | text ) }?,
+    attribute type { ( "author" | "performer" | "publisher" | "editor" | "adapter" | "translator" | "distributor" ) }?,
     roledescription*
 }
 
@@ -77,7 +60,8 @@ person =
 
 fullname =
   element name {
-    prefix*, forename*, initial*, surname, addition*
+    (( prefix*, forename*, initial*, surname, addition* ) | completeName ),
+    bnote*
 }
 
 prefix = element prefix { LocalizedString }
@@ -85,6 +69,7 @@ initial = element initial { LocalizedString }
 addition = element addition { LocalizedString }
 surname = element surname { LocalizedString }
 forename = element forename { LocalizedString }
+completename = element completename { LocalizedString }
 
 affiliation =
   element affiliation { 
@@ -97,11 +82,11 @@ affiliationdescription = element description { FormattedString }
 
 organization = 
   element organization {
-    orgname, abbreviation?, uri?, org-identifier*, contact*
+    orgname, subdivision?, abbreviation?, uri?, org-identifier*, contact*
 }
 
-orgname =
-  element name { LocalizedString }
+orgname = element name { LocalizedString }
+subdivision = element subdivision { LocalizedString }
 
 abbreviation =
   element abbreviation { LocalizedString }
@@ -175,38 +160,80 @@ bibitem_no_id =
 
 BibItemType |=
     (  "article" | "book" | "booklet" | "conference" | "manual" |
-                      "proceedings" | "presentation" | "thesis" | "techreport" |
-                      "standard" | "unpublished" )
+       "proceedings" | "presentation" | "thesis" | "techreport" |
+       "standard" | "unpublished" | "map" | "electronic resource" | 
+       "audiovisual" | "map" | "film" | "video" | "broadcast" |
+       "graphic work" | "music" | "patent" )
  
 
 BibliographicItem =
     attribute type { BibItemType }?,
     (btitle+ | formattedref), bsource*, docidentifier*, bdate*, contributor*, 
-    edition?, biblionote*, language*, script*, abstract?, status?, copyright?,
-    docrelation*
+    edition?, biblionote*, language*, script*, originallanguage*, originalscript*,
+    abstract?, status?, copyright?, docrelation*, series*, medium?, bplace*,
+    extent*, accesslocation*, bclassification, size?, scale?
 
-btitle = element title { FormattedString }
-bsource = element source { TypedUri }
+btitle = element title { TypedTitleString }
+bsource = element link { TypedUri }
 formattedref = element formattedref { FormattedString }
 link = element link { TypedUri }
+
+TypedTitleString = 
+  attribute type { TitleType }?,
+  FormattedString  
+
+TitleType = ( "alternative" | "original" | "unofficial" | "subtitle" | "main" )
 
 TypedUri =
   attribute type { text }?,
   xsd:anyURI 
 
+DateType =
+  attribute text { text }?,
+  ( xsd:gYear | xsd:date )?
+
 bdate = element date {
-  attribute type { ( "published" | "accessed" | "created" | "implemented" | "obsoleted" | "confirmed" | "updated" | "issued" ) },
+  attribute type { ( "published" | "accessed" | "created" | "implemented" | "obsoleted" | "confirmed" | "updated" | "issued" | "transmistted" | "copyright" ) },
   bfrom, bto?
 }
 
-bfrom = element from { ( xsd:gYear | xsd:date ) }
-
-bto = element to { ( xsd:gYear | xsd:date ) }
+bfrom = element from { DateType }
+bto = element to { DateType }
 
 docidentifier = element docidentifier { 
   attribute type { text }?,
   text 
 }
+bclassification = element classification { 
+  attribute type { text }?,
+  text 
+}
+
+bplace = element place { text }
+medium = element medium { text }
+size = element size { text }
+scale = element scale { text }
+accesslocation = element accesslocation { text }
+
+extent = element extent {
+  attribute type { SpecificLocalityType },
+  text
+}
+
+series = element series {
+  attribute type { "main" | "alt" }?,
+  ( btitle | formattedref ),
+  bplace, seriesorganization,
+  abbreviation?,
+  seriesfrom?, seriesto?,
+  seriesnumber?, seriespartnumber?
+}
+
+seriesorganization = element organization { text }
+seriesfrom = element from { xsd:dateTime | xsd:gYear }
+seriesto = element to { xsd:dateTime | xsd:gYear }
+seriesnumber = element number { text }
+seriespartnumber = element partnumber { text }
 
 biblionote = element note { FormattedString }
 abstract = element abstract { FormattedString }
@@ -226,7 +253,7 @@ docrelation =
   element relation {
     attribute type {
       ( "parent" | "child" | "obsoletes" | "updates" | "updatedBy" | "complements" | "derivedFrom" |
-        "adoptedFrom" | "equivalent" | "identical" | "nonequivalent" ) },
+        "adoptedFrom" | "equivalent" | "identical" | "nonequivalent" | "includedIn" ) },
        element bibitem { BibliographicItem },
        locality*
 }

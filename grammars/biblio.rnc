@@ -4,14 +4,12 @@ status =
   element status { LocalizedString }
 
 language = element language { text }
-originallanguage = element originallanguage { text }
 ## ISO-639
 
 script = element script { text }
-originalscript = element originalscript { text }
 ## ISO-15924: Latn
 
-edition = element edition { xsd:int }
+edition = element edition { text }
 
 LocalizedString =
   # multiple languages and scripts possible: comma delimit them if so
@@ -170,7 +168,7 @@ BibItemType |=
 BibliographicItem =
     attribute type { BibItemType }?,
     (btitle+ | formattedref), bsource*, docidentifier*, bdate*, contributor*, 
-    edition?, biblionote*, language*, script*, originallanguage*, originalscript*,
+    edition?, biblionote*, language*, script*, 
     abstract?, status?, copyright?, docrelation*, series*, medium?, bplace*,
     extent*, accesslocation*, bclassification, size?, scale?
 
@@ -211,7 +209,10 @@ bclassification = element classification {
 }
 
 bplace = element place { text }
-medium = element medium { text }
+medium = element medium { 
+  form, size*, scale*
+}
+form = element form { text }
 size = element size { text }
 scale = element scale { text }
 accesslocation = element accesslocation { text }
@@ -253,8 +254,8 @@ owner =
 docrelation =
   element relation {
     attribute type {
-      ( "parent" | "child" | "obsoletes" | "updates" | "updatedBy" | "complements" | "derivedFrom" |
-        "adoptedFrom" | "equivalent" | "identical" | "nonequivalent" | "includedIn" ) },
+      ( "obsoletes" | "updates" | "updatedBy" | "complements" | "derivedFrom" |
+        "adoptedFrom" | "equivalent" | "identical" | "nonequivalent" | "includedIn" | "includes" ) },
        element bibitem { BibliographicItem },
        locality*
 }

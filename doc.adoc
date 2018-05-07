@@ -72,13 +72,13 @@ The reference model for citations is provided in <<citationmodel>>.
 .Reference Model, ISO 690
 ====
 .Bibliographic Item
-image::images/BibliographicItem.png
+image::images/BibliographicItem.png[]
 
 .Contributor
-image::images/Contributor.png
+image::images/Contributor.png[]
 
 .Data Types
-image::images/DataTypes.png
+image::images/DataTypes.png[]
 ====
 
 [[serialisation]]
@@ -94,9 +94,8 @@ The serialisation is provided in <<relaxngcompact>>; refer to <<relaxngcompact_t
 an introduction to the format.
 
 [[serialisation_rnc]]
-.RELAXNG Compact Serialisation, Reference Model, ISO 690
-====
 [source]
+.RELAXNG Compact Serialisation, Reference Model, ISO 690
 --
 grammar {
 
@@ -356,7 +355,6 @@ AnyElement = element * { ( text | AnyElement) }
 
 }
 --
-====
 
 == Overarching guidelines
 
@@ -406,7 +404,7 @@ on local requirements:
 
 .Differential Provenance
 ====
-[source]
+[source,xml]
 --
 <bibitem>
   <date>1959</date>
@@ -1245,8 +1243,8 @@ historical titles, are given with `series@type` as "alt". Different time spans f
 titles are given with `series/dateFrom` and `series/dateTo` (<<iso690,clause 6.3.3>>).
 
 ====
-_New Scientist_. 1956-1971.
-_New Scientist and Science Journal. Jan 21, 1971-Sept 30, 1971.
+_New Scientist_. 1956-1971. +
+_New Scientist and Science Journal. Jan 21, 1971-Sept 30, 1971. +
 _New Scientist_. 1971-.
 
 [source,xml]
@@ -1284,7 +1282,7 @@ _New Scientist_. 1971-.
 
 [[citation_uml]]
 .Reference Model, ISO 690 Citations
-image::images/Citation.png
+image::images/Citation.png[]
 
 [bibliography]
 == Bibliography 

@@ -163,7 +163,8 @@ BibItemType |=
        "proceedings" | "presentation" | "thesis" | "techreport" |
        "standard" | "unpublished" | "map" | "electronic resource" | 
        "audiovisual" | "map" | "film" | "video" | "broadcast" |
-       "graphic work" | "music" | "patent" )
+       "graphic work" | "music" | "patent" | "inbook" | "incollection" |
+        "inproceedings" )
  
 
 BibliographicItem =

@@ -254,7 +254,7 @@ owner =
 docrelation =
   element relation {
     attribute type {
-      ( "obsoletes" | "updates" | "updatedBy" | "complements" | "derivedFrom" |
+      ( "obsoletes" | "updates" | "updatedBy" | "complements" | "derivedFrom" | "translatedFrom" |
         "adoptedFrom" | "equivalent" | "identical" | "nonequivalent" | "includedIn" | "includes" ) },
        element bibitem { BibliographicItem },
        locality*

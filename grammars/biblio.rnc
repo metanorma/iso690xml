@@ -209,7 +209,7 @@ bclassification = element classification {
 
 bplace = element place { text }
 medium = element medium { 
-  form, size*, scale*
+  form?, size?, scale?
 }
 form = element form { text }
 size = element size { text }

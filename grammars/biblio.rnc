@@ -159,7 +159,7 @@ BibItemType |=
     (  "article" | "book" | "booklet" | "conference" | "manual" |
        "proceedings" | "presentation" | "thesis" | "techreport" |
        "standard" | "unpublished" | "map" | "electronic resource" | 
-       "audiovisual" | "map" | "film" | "video" | "broadcast" |
+       "audiovisual" | "film" | "video" | "broadcast" |
        "graphic work" | "music" | "patent" | "inbook" | "incollection" |
         "inproceedings" )
  

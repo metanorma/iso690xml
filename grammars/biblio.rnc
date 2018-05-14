@@ -163,18 +163,24 @@ BibItemType |=
        "graphic work" | "music" | "patent" | "inbook" | "incollection" |
         "inproceedings" )
  
-
 BibliographicItem =
     attribute type { BibItemType }?,
-    (btitle+ | formattedref), bsource*, docidentifier*, bdate*, contributor*, 
-    edition?, biblionote*, language*, script*, 
+    (btitle+ | formattedref), bsource*, docidentifier*, bdate*, contributor*,
+    edition?, biblionote*, language*, script*,
     abstract?, status?, copyright?, docrelation*, series*, medium?, bplace*,
-    extent*, accesslocation*, bclassification, size?, scale?
+    extent*, accesslocation*, bclassification?, validity?
 
 btitle = element title { TypedTitleString }
 bsource = element link { TypedUri }
 formattedref = element formattedref { FormattedString }
 link = element link { TypedUri }
+
+validity = element validity {
+  validityBegins?, validityEnds?, validityRevision?
+}
+validityBegins = element validityBegins { Iso8601DateTime}
+validityEnds = element validityEnds { Iso8601DateTime}
+validityRevision = element revision { Iso8601DateTime}
 
 TypedTitleString = 
   attribute type { TitleType }?,

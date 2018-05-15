@@ -351,7 +351,7 @@
 							"type": {
 								"$ref": "AAAAAAFhRdU64S4VSlQ="
 							},
-							"multiplicity": "0..1",
+							"multiplicity": "0..*",
 							"isReadOnly": false,
 							"isOrdered": false,
 							"isUnique": false,
@@ -1102,7 +1102,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+copyright: CopyrightAssociation[0..1]",
+											"text": "+copyright: CopyrightAssociation[0..*]",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false

@@ -1,10 +1,10 @@
-= Bibliographic reference model for ISO 690
+= The Relaton Bibliographic reference model for ISO 690
 
 A bibliographic model that fully supports ISO 690.
 
 This bibliographic model is a superset of:
 
-* Bibliography models: https://github.com/riboseinc/bib-models[BibModels]
+* Relaton Bibliography models: https://github.com/riboseinc/bib-models[Relaton BibModels]
 
 The document models are expressed as UML and as RelaxNG Compact (RNC) grammars;
 see discussion under
